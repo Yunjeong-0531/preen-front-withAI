@@ -1,0 +1,5 @@
+export { TermsAgreement } from '@/features/terms/components/TermsAgreement'
+export { TermsLinks } from '@/features/terms/components/TermsLinks'
+export { useTerms } from '@/features/terms/hooks/useTerms'
+export { requiredTermsAgreed } from '@/features/terms/termUtils'
+export type { Term } from '@/features/terms/types'

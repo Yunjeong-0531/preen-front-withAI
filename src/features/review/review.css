@@ -1,0 +1,82 @@
+.spotify-embed {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+}
+.stars {
+  color: #e0a100;
+  letter-spacing: 2px;
+}
+.stars-off {
+  color: var(--border);
+}
+.star-input {
+  display: flex;
+  gap: 6px;
+}
+.star-input button {
+  font-size: 32px;
+  line-height: 1;
+  color: var(--border);
+}
+.star-input button.on {
+  color: #e0a100;
+}
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.track-grid li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.review-sort {
+  width: auto;
+}
+.track-results {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 360px;
+  overflow: auto;
+}
+.track-results button {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-align: left;
+}
+.track-results button[aria-pressed='true'] {
+  border-color: var(--text);
+  background: var(--surface);
+}
+.track-results img,
+.track-cover {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: var(--surface);
+}
+.track-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.track-text > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .track-grid {
+    grid-template-columns: 1fr;
+  }
+}

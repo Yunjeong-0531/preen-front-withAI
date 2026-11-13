@@ -1,0 +1,501 @@
+/* 기존 시안의 토큰(--text, --muted, --border, --surface, --paper)을 그대로 쓴다. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+header a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+header h1 a {
+  font-size: inherit;
+}
+.footer-links nav a {
+  font-size: 12px;
+}
+a:hover {
+  opacity: 0.75;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 버튼 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  font-size: 15px;
+  background: var(--paper);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--paper);
+}
+.btn-danger {
+  background: #b42318;
+  border-color: #b42318;
+  color: var(--paper);
+}
+.btn-small {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+.btn-link {
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+/* 폼 */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.field > label,
+.field-label {
+  font-size: 14px;
+}
+.field-error {
+  color: #b42318;
+}
+.input,
+.field input:not([type='checkbox']):not([type='radio']),
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  color: inherit;
+  background: var(--paper);
+}
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.field-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.field-row > .field {
+  flex: 1;
+  min-width: 0;
+}
+.form-error {
+  color: #b42318;
+  font-size: 14px;
+}
+.form-notice {
+  padding: 14px 16px;
+  background: var(--surface);
+  border-radius: 10px;
+  font-size: 14px;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* 페이지 틀 */
+main.narrow {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  gap: 24px;
+}
+main.medium {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  gap: 32px;
+}
+main.centered {
+  align-items: center;
+  text-align: center;
+}
+.page-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+h2 {
+  font-size: 26px;
+}
+h3 {
+  font-size: 19px;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.card-muted {
+  background: var(--surface);
+  border-color: transparent;
+}
+.list-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.list-card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.kv {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px 16px;
+  font-size: 15px;
+}
+.kv dt {
+  color: var(--muted);
+}
+.kv dd {
+  margin: 0;
+}
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.price-total {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  font-size: 19px;
+}
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 12px;
+}
+.badge-ok {
+  background: #e6f4ea;
+  color: #137333;
+}
+.badge-warn {
+  background: #fef3e2;
+  color: #a05a00;
+}
+.badge-off {
+  background: #fde8e8;
+  color: #b42318;
+}
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.table th,
+.table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.table th {
+  color: var(--muted);
+  font-weight: 400;
+}
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tabs button,
+.chip {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 14px;
+}
+.tabs button[aria-pressed='true'],
+.chip[aria-pressed='true'] {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--paper);
+}
+
+/* 상태 화면 */
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 16px;
+  text-align: center;
+}
+.state-full {
+  min-height: 50vh;
+}
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--border);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding-top: 8px;
+}
+.pagination button {
+  min-width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+.pagination button.active {
+  background: var(--text);
+  color: var(--paper);
+  border-color: var(--text);
+}
+
+/* 모달 */
+.dialog {
+  width: min(92vw, 520px);
+  max-height: 86vh;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  color: var(--text);
+}
+.dialog::backdrop {
+  background: #00000066;
+}
+.dialog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  max-height: 86vh;
+}
+.dialog-content {
+  overflow: auto;
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* 토스트 */
+.toasts {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: var(--text);
+  color: var(--paper);
+  font-size: 14px;
+}
+.toast-success {
+  background: #137333;
+}
+.toast-error {
+  background: #b42318;
+}
+
+/* 드롭다운 메뉴 */
+.menu {
+  position: relative;
+}
+.menu-panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 12px);
+  left: 0;
+  min-width: 180px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px #0000001a;
+}
+.menu-panel a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.menu-panel a:hover {
+  background: var(--surface);
+  opacity: 1;
+}
+
+/* 호스트 레이아웃 */
+.host-shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+.host-side {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 20px;
+  border-right: 1px solid var(--border);
+}
+.host-side h1 {
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+.host-side a,
+.host-side button {
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+.host-side a[aria-current='page'] {
+  background: var(--surface);
+}
+.host-shell main {
+  padding: 40px 48px;
+}
+
+@media (max-width: 1100px) {
+  .host-shell {
+    grid-template-columns: 1fr;
+  }
+  .host-side {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .host-shell main {
+    padding: 32px 20px;
+  }
+}
+@media (max-width: 640px) {
+  .kv {
+    grid-template-columns: 90px 1fr;
+  }
+  .field-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .toasts {
+    left: 20px;
+    right: 20px;
+  }
+}
+
+/* 공통 보조 */
+.pre-line {
+  white-space: pre-line;
+  line-height: 1.7;
+}
+.plain-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.muted {
+  color: var(--muted);
+}
+.thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.thumb {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+}
+.thumb button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper);
+  font-size: 13px;
+  line-height: 1;
+}
