@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { useParams } from 'react-router-dom'
 import { NotFoundView } from '@/common/components/Screens'
 import { ErrorState, LoadingBlock } from '@/common/components/StatusViews'
@@ -28,6 +28,14 @@ export function AccommodationDetailPage({
   const valid = Number.isInteger(id) && id > 0
   const query = useAccommodationDetail(valid ? id : undefined)
   const favorites = useFavoriteBinding()
+  const [activeTab, setActiveTab] = useState('detail-rooms')
+
+  const goToTab = (sectionId: string) => {
+    setActiveTab(sectionId)
+    document
+      .getElementById(sectionId)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   if (!valid) return <NotFoundView />
   if (query.isPending) return <LoadingBlock fullPage />
@@ -53,6 +61,19 @@ export function AccommodationDetailPage({
     activeRooms.length > 0
       ? Math.min(...activeRooms.map((r) => r.nightlyPrice))
       : 0
+
+  // 렌더되지 않는 섹션의 탭은 노출하지 않는다.
+  const tabs = [
+    { id: 'detail-rooms', label: '객실 선택', show: true },
+    { id: 'detail-intro', label: '숙소 소개', show: true },
+    {
+      id: 'detail-amenities',
+      label: '시설·서비스',
+      show: detail.amenities.length > 0,
+    },
+    { id: 'detail-policy', label: '위치·이용 안내', show: true },
+    { id: 'detail-reviews', label: '음악 리뷰', show: Boolean(renderReviews) },
+  ].filter((tab) => tab.show)
 
   return (
     <main className="page">
@@ -108,15 +129,23 @@ export function AccommodationDetailPage({
         )}
       </div>
 
-      <ul className="detail-tabs">
-        <li className="detail-tab-item active">객실 선택</li>
-        <li className="detail-tab-item">숙소 소개</li>
-        <li className="detail-tab-item">시설·서비스</li>
-        <li className="detail-tab-item">위치·이용 안내</li>
-        <li className="detail-tab-item">음악 리뷰</li>
+      <ul className="detail-tabs" role="tablist">
+        {tabs.map((tab) => (
+          <li key={tab.id} role="presentation">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              className={`detail-tab-item${activeTab === tab.id ? ' active' : ''}`}
+              onClick={() => goToTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          </li>
+        ))}
       </ul>
 
-      <section className="stack">
+      <section className="stack detail-section" id="detail-rooms">
         <h3>객실별 가격 · 예약 가능 여부</h3>
         {renderRooms ? (
           renderRooms(detail)
@@ -137,7 +166,7 @@ export function AccommodationDetailPage({
         )}
       </section>
 
-      <section className="stack">
+      <section className="stack detail-section" id="detail-intro">
         <h3>숙소 소개</h3>
         {detail.description && <p className="pre-line">{detail.description}</p>}
         <small>
@@ -147,7 +176,7 @@ export function AccommodationDetailPage({
       </section>
 
       {detail.amenities.length > 0 && (
-        <section className="stack">
+        <section className="stack detail-section" id="detail-amenities">
           <h3>시설 · 서비스</h3>
           <ul className="chips">
             {detail.amenities.map((amenity) => (
@@ -159,7 +188,7 @@ export function AccommodationDetailPage({
         </section>
       )}
 
-      <section className="stack">
+      <section className="stack detail-section" id="detail-policy">
         <h3>환불정책</h3>
         <RefundPolicyTable
           policyText={detail.refundPolicy?.policyText}
@@ -167,7 +196,11 @@ export function AccommodationDetailPage({
         />
       </section>
 
-      {renderReviews?.(detail)}
+      {renderReviews && (
+        <div className="detail-section" id="detail-reviews">
+          {renderReviews(detail)}
+        </div>
+      )}
     </main>
   )
 }

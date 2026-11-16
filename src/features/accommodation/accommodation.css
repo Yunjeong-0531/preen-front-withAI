@@ -144,7 +144,13 @@
   margin: 0;
   list-style: none;
 }
+.detail-section {
+  scroll-margin-top: 16px;
+}
 .detail-tab-item {
+  background: none;
+  border: 0;
+  font-family: inherit;
   padding: 12px 0;
   font-size: 16px;
   color: var(--muted);
