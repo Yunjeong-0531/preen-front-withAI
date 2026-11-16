@@ -3,7 +3,11 @@
   --muted: #7b828a;
   --border: #e5e7eb;
   --surface: #f5f6f7;
-  --paper: #fff;
+  --surface-alt: #f7f8f7;
+  --paper: #ffffff;
+  --brand: #30363d;
+  --green: #4d7764;
+  --green-light: #eef4f0;
 }
 * {
   box-sizing: border-box;
@@ -12,7 +16,8 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--paper);
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Gowun Dodum', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 button {
   font: inherit;
@@ -23,7 +28,7 @@ button {
   cursor: pointer;
 }
 button:hover {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 :focus-visible {
   outline: 2px solid var(--text);
@@ -47,33 +52,47 @@ small {
 }
 .page {
   max-width: 1440px;
-  margin: auto;
+  margin: 0 auto;
+  position: relative;
+  background-color: #ffffff;
 }
 header {
-  min-height: 96px;
+  height: 95.5px;
+  min-height: 95.5px;
   padding: 20px 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
   border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
 }
 h1 {
-  font-family: Manrope, sans-serif;
+  font-family: Manrope, system-ui, sans-serif;
   font-size: 36px;
   font-weight: 800;
   letter-spacing: 1.2px;
+  line-height: normal;
+}
+h1 a {
+  color: var(--text);
+  text-decoration: none;
 }
 header nav {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 24px;
 }
+header a,
 header button {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
 }
 .banner {
   min-height: 56px;
@@ -82,6 +101,7 @@ header button {
   display: flex;
   align-items: center;
   gap: 12px;
+  background-color: var(--surface);
 }
 .banner > img {
   width: 36px;
@@ -100,17 +120,19 @@ main {
   padding: 40px 64px 48px;
   display: flex;
   flex-direction: column;
-  gap: 54px;
+  gap: 36px;
+  box-sizing: border-box;
+  width: 100%;
 }
 footer {
-  padding: 0 64px 30px;
+  padding: 24px 64px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
+  border-top: 1px solid var(--border);
+  box-sizing: border-box;
 }
 .footer-top {
-  border-top: 1px solid var(--border);
-  padding-top: 28px;
   display: flex;
   justify-content: space-between;
   gap: 32px;
@@ -119,15 +141,42 @@ footer {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 28px;
 }
 .footer-links strong {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 27px;
+  font-family: Manrope, sans-serif;
+  font-size: 24px;
   font-weight: 800;
+  color: var(--text);
 }
 .footer-links nav {
   display: flex;
+  gap: 20px;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+.footer-links a:hover {
+  text-decoration: underline;
+}
+.company {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.contact {
+  text-align: right;
+}
+.contact p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.copyright {
+  text-align: left;
+  color: var(--muted);
+  font-size: 12px;
+}
   flex-wrap: wrap;
   gap: 12px;
   font-size: 12px;

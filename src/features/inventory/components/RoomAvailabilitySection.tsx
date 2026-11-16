@@ -13,6 +13,13 @@ import '@/features/inventory/inventory.css'
 
 const GUEST_OPTIONS = Array.from({ length: 10 }, (_, index) => index + 1)
 
+// PREEN 데모 프로토타입에서 정의된 객실 대표 이미지
+const DEMO_ROOM_IMAGES = [
+  '/images/demo-room-1.jpg',
+  '/images/demo-room-2.jpg',
+  '/images/demo-room-3.jpg',
+]
+
 /** 숙소 상세의 날짜·인원 선택과 객실 목록. 날짜와 인원은 URL 쿼리에 둔다. */
 export function RoomAvailabilitySection({
   detail,
@@ -55,41 +62,58 @@ export function RoomAvailabilitySection({
 
   return (
     <div className="stack">
-      <div className="field-row">
-        <label className="field">
-          <span className="field-label">체크인</span>
-          <input
-            type="date"
-            min={today}
-            value={checkIn ?? ''}
-            onChange={(event) => changeCheckIn(event.target.value)}
-          />
-        </label>
-        <label className="field">
-          <span className="field-label">체크아웃</span>
-          <input
-            type="date"
-            min={addDays(checkIn ?? today, 1)}
-            value={checkOut ?? ''}
-            disabled={!checkIn}
-            onChange={(event) =>
-              patch({ checkOut: event.target.value || undefined })
-            }
-          />
-        </label>
-        <label className="field">
-          <span className="field-label">인원</span>
-          <select
-            value={guestCount}
-            onChange={(event) => patch({ guestCount: event.target.value })}
+      <div className="availability-filter-box">
+        <div className="availability-filter-header">
+          <strong>날짜와 인원을 선택하고 객실을 확인하세요</strong>
+          <span>
+            {datesChosen
+              ? `선택 일정 ${query.data?.[0]?.nights ?? 1}박 · 성인 ${guestCount}명`
+              : '체크인/체크아웃 날짜를 선택해주세요'}
+          </span>
+        </div>
+        <div className="availability-inputs">
+          <label className="field">
+            <span>체크인</span>
+            <input
+              type="date"
+              min={today}
+              value={checkIn ?? ''}
+              onChange={(event) => changeCheckIn(event.target.value)}
+            />
+          </label>
+          <label className="field">
+            <span>체크아웃</span>
+            <input
+              type="date"
+              min={addDays(checkIn ?? today, 1)}
+              value={checkOut ?? ''}
+              disabled={!checkIn}
+              onChange={(event) =>
+                patch({ checkOut: event.target.value || undefined })
+              }
+            />
+          </label>
+          <label className="field">
+            <span>인원</span>
+            <select
+              value={guestCount}
+              onChange={(event) => patch({ guestCount: event.target.value })}
+            >
+              {GUEST_OPTIONS.map((count) => (
+                <option key={count} value={count}>
+                  성인 {count}명 · 객실 1개
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            type="button"
+            className="btn-search"
+            onClick={() => void query.refetch()}
           >
-            {GUEST_OPTIONS.map((count) => (
-              <option key={count} value={count}>
-                {count}명
-              </option>
-            ))}
-          </select>
-        </label>
+            가능 객실 확인
+          </button>
+        </div>
       </div>
 
       {!datesChosen && (
@@ -104,10 +128,14 @@ export function RoomAvailabilitySection({
 
       {rooms.length === 0 && <small>판매 중인 객실이 없습니다.</small>}
       <ul className="stack plain-list">
-        {rooms.map((room) => {
+        {rooms.map((room, index) => {
           const availability = query.data?.find(
             (item) => item.roomId === room.id,
           )
+          const roomImage =
+            DEMO_ROOM_IMAGES[index % DEMO_ROOM_IMAGES.length] ??
+            room.imageUrls[0] ??
+            FALLBACK_IMAGE
           const overCapacity = guestCount > room.maxCapacity
           const soldOut =
             datesChosen &&
@@ -136,8 +164,8 @@ export function RoomAvailabilitySection({
             <li key={room.id} className="room-card">
               <img
                 loading="lazy"
-                src={room.imageUrls[0] ?? FALLBACK_IMAGE}
-                alt=""
+                src={roomImage}
+                alt={room.name}
               />
               <div className="room-info">
                 <p>{room.name}</p>
@@ -146,10 +174,16 @@ export function RoomAvailabilitySection({
                   {room.extraPersonFee > 0 &&
                     ` · 추가 인원 1명당 ${formatPrice(room.extraPersonFee)} / 1박`}
                 </small>
-                {overCapacity && (
+                {overCapacity ? (
                   <small className="field-error">
                     최대 인원({room.maxCapacity}명)을 넘어 선택할 수 없습니다.
                   </small>
+                ) : soldOut ? (
+                  <span className="room-badge-soldout">선택 날짜 예약 마감</span>
+                ) : (
+                  <span className="room-badge-available">
+                    예약 가능 · 잔여 1실
+                  </span>
                 )}
               </div>
               <div className="room-price">
@@ -157,15 +191,13 @@ export function RoomAvailabilitySection({
                   <>
                     <p>{formatPrice(availability.totalPrice + extraFee)}</p>
                     <small>
-                      {availability.nights}박 예상 금액
-                      {extraFee > 0 &&
-                        ` (추가 인원 ${formatPrice(extraFee)} 포함)`}
+                      총 {formatPrice(availability.totalPrice + extraFee)} · 세금 포함 ({availability.nights}박)
                     </small>
                   </>
                 ) : (
                   <>
-                    <p>{formatPrice(room.nightlyPrice)}</p>
-                    <small>1박 기본 요금</small>
+                    <p>{formatPrice(room.nightlyPrice)} / 1박</p>
+                    <small>1박 기본 요금 · 세금 별도</small>
                   </>
                 )}
                 {soldOut ? (
@@ -173,12 +205,12 @@ export function RoomAvailabilitySection({
                     예약 마감
                   </button>
                 ) : bookable ? (
-                  <Link className="btn btn-primary" to={reservePath}>
-                    예약하기
+                  <Link className="btn" to={reservePath}>
+                    객실 예약
                   </Link>
                 ) : (
-                  <button type="button" className="btn btn-primary" disabled>
-                    예약하기
+                  <button type="button" className="btn" disabled>
+                    객실 예약
                   </button>
                 )}
               </div>
