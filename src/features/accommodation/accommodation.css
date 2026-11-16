@@ -216,3 +216,293 @@
     gap: 24px 16px;
   }
 }
+
+/* 홈·목록 공통: 지역·일정·인원 검색바 */
+.search {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.75fr auto;
+  align-items: center;
+  border: 1px solid #000;
+  border-radius: 32px;
+  padding: 10px;
+}
+.search-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 20px;
+  text-align: left;
+  min-width: 0;
+  font-size: 15px;
+}
+.search-field small {
+  font-size: 11px;
+}
+.search-field:nth-child(-n + 2) {
+  border-right: 1px solid var(--border);
+}
+.search-field input,
+.search-field select {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+.search-field > input {
+  width: 100%;
+}
+.search-dates {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.search-submit {
+  padding: 14px 24px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* 홈·목록 공통: 숙박 유형 타일 */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 24px;
+  padding-top: 8px;
+}
+.categories a,
+.categories button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: inherit;
+  text-decoration: none;
+}
+/* 목록 화면: 선택된 타일만 진하게, 밑줄로 표시한다. */
+.categories.has-active a,
+.categories.has-active button {
+  padding-bottom: 10px;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+}
+.categories.has-active a.active {
+  border-bottom-color: var(--text);
+  color: var(--text);
+}
+.category-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 22px;
+  background: #f5f5f4;
+  box-shadow: inset 0 2px 5px #26332c12;
+  overflow: hidden;
+}
+.category-image img {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+}
+
+/* 목록 화면 */
+.list-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.list-heading h2 {
+  font-size: 32px;
+}
+.list-heading p {
+  font-size: 15px;
+  color: var(--muted);
+}
+.region-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.region-picker h3 {
+  font-size: 17px;
+}
+.region-picker .chip-item[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--paper);
+}
+.list-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+.list-filters {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 250px;
+  flex-shrink: 0;
+}
+.list-filters fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 24px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+.list-filters legend {
+  padding: 0 0 16px;
+  font-size: 17px;
+  color: var(--text);
+}
+.list-filters select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  color: var(--text);
+  background: var(--paper);
+}
+.list-results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.list-results > h3 {
+  font-size: 21px;
+}
+.stay-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.stay-row-photo {
+  width: 230px;
+  height: 156px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.stay-row-photo > a,
+.stay-row-photo > a > img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.stay-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.stay-row-info h3 {
+  font-size: 24px;
+}
+.stay-row-info h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.stay-row-info p {
+  font-size: 14px;
+  color: var(--muted);
+}
+.stay-row-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  width: 230px;
+  flex-shrink: 0;
+}
+.stay-row-price p {
+  font-size: 22px;
+}
+.stay-row-price p.muted {
+  font-size: 14px;
+}
+.stay-row-button {
+  padding: 14px 22px;
+  border-radius: 7px;
+  background: var(--text);
+  color: var(--paper);
+  font-size: 15px;
+  text-decoration: none;
+}
+@media (max-width: 1100px) {
+  .categories {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .list-layout {
+    flex-direction: column;
+  }
+  .list-filters {
+    width: 100%;
+  }
+  .list-results {
+    width: 100%;
+    flex: none;
+  }
+  .stay-row-price {
+    width: auto;
+  }
+}
+@media (max-width: 640px) {
+  .search {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .search-field:nth-child(-n + 2) {
+    border: 0;
+  }
+  .categories {
+    gap: 24px 8px;
+  }
+  .categories a,
+  .categories button {
+    font-size: 12px;
+  }
+  .category-image {
+    width: 64px;
+    height: 64px;
+  }
+  .category-image img {
+    width: 60px;
+    height: 60px;
+  }
+  .list-heading h2 {
+    font-size: 26px;
+  }
+  .stay-row {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .stay-row-photo {
+    width: 100%;
+    height: 200px;
+  }
+  .stay-row-info {
+    flex-basis: 100%;
+  }
+  .stay-row-price {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

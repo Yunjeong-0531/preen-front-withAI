@@ -1,6 +1,8 @@
 export { createAccommodationRoutes } from '@/features/accommodation/routes'
 export { AccommodationSection } from '@/features/accommodation/components/AccommodationSection'
 export { AccommodationGrid } from '@/features/accommodation/components/AccommodationGrid'
+export { CategoryTiles } from '@/features/accommodation/components/CategoryTiles'
+export { SearchBar } from '@/features/accommodation/components/SearchBar'
 export { CategoryMenu } from '@/features/accommodation/components/CategoryMenu'
 export { RefundPolicyTable } from '@/features/accommodation/components/RefundPolicyTable'
 export { FALLBACK_IMAGE } from '@/features/accommodation/components/AccommodationCard'

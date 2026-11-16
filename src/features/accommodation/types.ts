@@ -91,8 +91,12 @@ export interface SearchConditions {
   checkIn?: string
   checkOut?: string
   guestCount?: number
+  /** 타일로 들어온 탐색 화면. 서버로는 보내지 않는다. */
+  view?: SearchView
   page: number
 }
+
+export type SearchView = 'weekend' | 'region'
 
 /** 찜 상태와 토글 핸들러. 카드와 상세는 props로 받는다. */
 export interface FavoriteBinding {
