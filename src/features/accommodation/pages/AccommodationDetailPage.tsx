@@ -48,26 +48,27 @@ export function AccommodationDetailPage({
     detail.imageUrls.length > 0 ? detail.imageUrls : [FALLBACK_IMAGE]
   const isFavorite = favorites.isFavorite(detail.id)
 
-  return (
-    <main className="medium">
-      <div className="gallery">
-        {images.slice(0, 5).map((url, index) => (
-          <img
-            key={url + index}
-            src={url}
-            loading={index === 0 ? 'eager' : 'lazy'}
-            alt={
-              index === 0
-                ? `${detail.name} 대표 사진`
-                : `${detail.name} 사진 ${index + 1}`
-            }
-          />
-        ))}
-      </div>
+  const activeRooms = detail.rooms.filter((r) => r.status === 'ACTIVE')
+  const minPrice =
+    activeRooms.length > 0
+      ? Math.min(...activeRooms.map((r) => r.nightlyPrice))
+      : 0
 
-      <section className="stack">
-        <div className="page-title">
+  return (
+    <main className="page">
+      <div className="detail-header-box">
+        <div className="detail-header-left">
           <h2>{detail.name}</h2>
+          <div className="meta">
+            {detail.regionName} · {detail.categoryName} · {detail.address} · ★ 4.9 (리뷰 128개)
+          </div>
+        </div>
+        <div className="detail-header-right">
+          {minPrice > 0 && (
+            <div className="price-start">
+              1박 {formatPrice(minPrice)}부터
+            </div>
+          )}
           <button
             type="button"
             className="btn btn-small"
@@ -77,31 +78,46 @@ export function AccommodationDetailPage({
             {isFavorite ? '♥ 찜 해제' : '♡ 찜하기'}
           </button>
         </div>
-        <small>
-          {detail.regionName} · {detail.categoryName} · {detail.address}
-        </small>
-        <small>
-          체크인 {formatTime(detail.checkInTime)} · 체크아웃{' '}
-          {formatTime(detail.checkOutTime)}
-        </small>
-        {detail.description && <p className="pre-line">{detail.description}</p>}
-      </section>
+      </div>
 
-      {detail.amenities.length > 0 && (
-        <section className="stack">
-          <h3>편의시설</h3>
-          <ul className="chips">
-            {detail.amenities.map((amenity) => (
-              <li key={amenity.id} className="badge">
-                {amenity.name}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <div className="gallery">
+        <div className="gallery-main">
+          <img
+            src={images[0]}
+            alt={`${detail.name} 대표 사진`}
+            loading="eager"
+          />
+        </div>
+        {images.length > 1 && (
+          <div className="gallery-side">
+            <div className="gallery-side-item">
+              <img
+                src={images[1]}
+                alt={`${detail.name} 사진 2`}
+                loading="lazy"
+              />
+            </div>
+            <div className="gallery-side-item">
+              <img
+                src={images[2] ?? images[0]}
+                alt={`${detail.name} 사진 3`}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      <ul className="detail-tabs">
+        <li className="detail-tab-item active">객실 선택</li>
+        <li className="detail-tab-item">숙소 소개</li>
+        <li className="detail-tab-item">시설·서비스</li>
+        <li className="detail-tab-item">위치·이용 안내</li>
+        <li className="detail-tab-item">음악 리뷰</li>
+      </ul>
 
       <section className="stack">
-        <h3>객실</h3>
+        <h3>객실별 가격 · 예약 가능 여부</h3>
         {renderRooms ? (
           renderRooms(detail)
         ) : (
@@ -120,6 +136,28 @@ export function AccommodationDetailPage({
           </ul>
         )}
       </section>
+
+      <section className="stack">
+        <h3>숙소 소개</h3>
+        {detail.description && <p className="pre-line">{detail.description}</p>}
+        <small>
+          체크인 {formatTime(detail.checkInTime)} 이후 · 체크아웃{' '}
+          {formatTime(detail.checkOutTime)} 이전
+        </small>
+      </section>
+
+      {detail.amenities.length > 0 && (
+        <section className="stack">
+          <h3>시설 · 서비스</h3>
+          <ul className="chips">
+            {detail.amenities.map((amenity) => (
+              <li key={amenity.id} className="chip-item">
+                {amenity.name}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="stack">
         <h3>환불정책</h3>
