@@ -15,7 +15,9 @@ export function parseSearchConditions(
   const keyword = params.get('keyword')?.trim()
   const checkIn = params.get('checkIn')
   const checkOut = params.get('checkOut')
+  const view = params.get('view')
   return {
+    view: view === 'weekend' || view === 'region' ? view : undefined,
     regionId: toPositiveInt(params.get('regionId')),
     categoryId: toPositiveInt(params.get('categoryId')),
     keyword: keyword || undefined,
@@ -32,6 +34,7 @@ export function toSearchParams(
 ): URLSearchParams {
   const params = new URLSearchParams()
   const entries: [string, string | number | undefined][] = [
+    ['view', conditions.view],
     ['regionId', conditions.regionId],
     ['categoryId', conditions.categoryId],
     ['keyword', conditions.keyword?.trim() || undefined],
