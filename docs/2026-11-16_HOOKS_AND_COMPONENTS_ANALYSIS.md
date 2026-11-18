@@ -1,5 +1,8 @@
 # Preen Frontend 커스텀 훅 및 컴포넌트 분석 보고서
 
+- **작성일자**: 2026-11-16
+- **대상 프로젝트**: `preen-front-withAI`
+
 본 문서는 `preen-front-withAI` 프로젝트의 모든 커스텀 훅(Custom Hooks), 페이지(Pages), 컴포넌트(Components) 구조와 상호 의존 관계를 체계적으로 정리한 분석서입니다.
 
 ---

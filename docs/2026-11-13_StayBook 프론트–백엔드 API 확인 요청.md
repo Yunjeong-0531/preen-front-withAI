@@ -1,6 +1,8 @@
 # StayBook 프론트–백엔드 API 확인 요청
 
-Nov 13, 2026 · @yunjeong
+- **작성일자**: 2026-11-13
+- **작성자**: @yunjeong
+- **대상 프로젝트**: `preen-front-withAI`
 
 ## 개요
 
